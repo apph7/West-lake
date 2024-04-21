@@ -1,0 +1,199 @@
+.caBox{
+    background-attachment: fixed;
+    background: url('../ca/agenda_bg.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 150px;
+    min-height: 100vh;
+    width: 100%;
+}
+.caTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding-top: 100px; */
+    color: #fff;
+    font-size: 30px;
+    margin-bottom: 30px;
+    /* margin-top: 30px; */
+    -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+}
+.ca-box{
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    margin: 0 auto;
+    width: 80%;
+    color: black;
+    border-radius: 20px;
+    background: rgba(255,255,255,.9);
+}
+.caTypeBox{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.ca-dateType,.ca-agendaType{
+    width: 100%;
+}
+.caTypeBox span{
+    margin: 20px;
+    color: #2db1ba;
+    font-size: 20px;
+    position: relative;
+}
+.caTypeBox span:before {
+    content: '';
+    height: 4px;
+    background: linear-gradient(to right,#2184cb,#2db1ba);
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transition: .3s;
+}
+.caTypeBox span.active:before,.caTypeBox span:hover:before {
+    transform: scaleX(1);
+}
+
+.ca-c-title{
+    font-size: 24px;
+    width: 100%;
+    height: 62px;
+    background: #fcffff;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    box-shadow: 0 0 1.8rem -0.2rem rgb(132 208 253 / 30%);
+  }
+  .ca-c-title .catit {
+    background: linear-gradient(to right,#2184cb,#2db1ba);
+    height: 100%;
+    width: 300px;
+    -webkit-clip-path: polygon(0 0,96%0,74% 100%,0 100%);
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding-left:1.5rem;
+    color: #fff;
+    font-weight:100;
+    font-size: calc(24px + .2vw);
+    position: relative;
+  }
+  .ca-c-title .catit p{
+    -webkit-box-reflect:below -7px -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+  }
+
+  .ca-c-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+ 
+  }
+  
+  .ca-c-container h3 {
+    color: #262626;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  
+   .ca-c-container p {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #666666;
+  }
+  .ca-c-container .small {
+    font-size: 14px;
+  }
+  .ca-c-container .go-corner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    background-color: #2db1ba93;
+    border-radius: 0 4px 0 32px;
+  }
+  
+  .ca-c-container .go-arrow {
+    margin-top: -4px;
+    margin-right: -4px;
+    color: white;
+    font-family: courier, sans;
+  }
+  
+  .ca-c-container .card1 {
+    display: block;
+    position: relative;
+    max-width: 262px;
+    /* min-width: 262px; */
+    width: 262px;
+    height: 170px;
+    background-color: #f2f8f9;
+    border-radius: 4px;
+    padding: 32px 24px;
+    margin: 12px;
+    text-decoration: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .ca-c-container .card1:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #2db1ba93;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease-out;
+  }
+  .ca-c-container .card1:hover:before {
+    transform: scale(21);
+  }
+
+  .card1:hover p{
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .card1:hover h3 {
+    transition: all 0.3s ease-out;
+    color: #ffffff;
+  }
+  /* .ca-dingle */
+  .ca-weiding{
+    margin: 0 auto;
+    width: fit-content;
+    text-align: center;
+    border-radius: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #666666;
+    margin-top: 10px;
+  }
+  .card1:hover .ca-weiding{
+    transition: all 0.3s ease-out;
+    color: #ffffff;
+    border: 1px #ffffff solid;
+  }

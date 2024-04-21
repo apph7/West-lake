@@ -1,0 +1,197 @@
+.aboutBk{
+    margin-top: 60px;
+    display: block;
+    height:40rem;
+    max-height: 400px;
+    width: 100%;
+    background: url('about/aboutBg.webp') no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    /* font-size: 1.2rem; */
+    position: relative;
+}
+.aboutBk span{
+    font-size:50px;
+    color: white;
+    position: absolute;
+    top:50%;
+    left: 5%;
+    transform: translate(50%,0);
+}
+/* ================================ */
+
+.aboutinfo{
+    --box-x-padding: 1rem;
+	--box-y-padding: 1rem;
+}
+
+  @media (min-width: 40em) {
+    .aboutinfo {
+      --box-y-padding: 4rem;
+    }
+  }
+  @media (min-width: 60em) {
+    .aboutinfo {
+      --box-x-padding: 3rem;
+      --box-y-padding: 6rem;
+    }
+  }
+  @media (min-width: 40em) {
+    .aboutinfo section {
+      display: grid;
+      grid-template-rows: repeat(3, auto);
+      grid-template-columns: 4fr 4fr 5fr;
+      grid-template-areas: '. . title' 'img img content' 'img img .';
+      max-width: 1000px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .aboutinfo section::after {
+      content:'';
+      grid-column: 2/-1;
+      grid-row: 1/3;
+      position: relative;
+      z-index: -1;
+      background: transparent;
+      box-shadow: 0 0.2em 1em rgba(61,48,41,0.2);
+    }
+    .aboutinfo h1 {
+      grid-area: title;
+      padding-top: var(--box-y-padding);
+      padding-left: var(--box-x-padding);
+    }
+    .aboutinfo .content {
+      grid-area: content;
+      padding-bottom: var(--box-y-padding);
+      padding-left: var(--box-x-padding);
+      padding-right: var(--box-x-padding);
+      overflow: hidden;
+    }
+    .aboutinfo .img {
+      grid-area: img;
+    }
+  }
+
+  .aboutinfo {
+    font-size: 15px;
+    margin-top: 6rem;
+    background: url('about/about_bg3.png') no-repeat;
+
+  }
+  .aboutinfo h1 {
+    font-size: 4em;
+    color: #2db1ba;
+    margin: 0 0 1rem;
+    font-family: serif;
+    position: relative;
+  }
+  .aboutinfo h1::after {
+    content: '';
+    position: absolute;
+    width: 6rem;
+    background-color: #2184cb;
+    height: 2px;
+    top: 0;
+    left: 0;
+  }
+  @media (min-width: 40em) {
+    .aboutinfo h1::after {
+      left: var(--box-x-padding);
+      top: var(--box-y-padding);
+    }
+  }
+  .aboutinfo .content {
+    color: #4d4d4d;
+    margin-bottom: var(--box-y-padding);
+  }
+  @media (min-width: 40em) {
+    .aboutinfo .content {
+      margin-bottom: 0;
+    }
+  }
+  .aboutinfo p {
+    margin-top: 0;
+    line-height: 1.5;
+    display: block;
+    height: 310px;
+    overflow-y: scroll;
+  }
+  .aboutinfo p::-webkit-scrollbar{
+    display: none;
+  }
+  .aboutinfo .img {
+    position: relative;
+  }
+  .aboutinfo video {
+    max-width: 100%;
+    vertical-align: middle;
+    object-fit: cover;
+    box-shadow: 0 0.2em 1.2em rgba(61,48,41,0.1);
+  }
+
+  .thinkbackTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+	.thinkBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    /* background-color: #212121; */
+    margin: 0;
+    padding: 0;
+  }
+  .thinkBack a{
+    text-decoration: none;
+    color: #2184cb;
+  }
+  .thinkBack .swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  
+  .thinkBack .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 320px;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .thinkBack .picture {
+    width: 320px;
+    height: 320px;
+    overflow: hidden;
+  }
+  .thinkBack .picture img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .thinkBack .detail {
+    padding: 25px 20px;
+    font-weight: 600;
+    text-align: center;
+  
+  }
+  .thinkBack .detail h3 {
+    margin: 0;
+    font-size: 20px;
+  } 
+  .thinkBack .detail span {
+    display: block;
+    font-size: 16px;
+    color: #2db1ba;
+  }
+
+ 

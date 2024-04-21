@@ -1,0 +1,762 @@
+.container-h {
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+.h-qiandao {
+    font-size: 14px;
+    color: #293C48;
+    padding-top: 200px;
+    padding-bottom: 200px;
+    width: 100%;
+    height: auto;
+}
+
+.h-qiandao-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    font-size: 30px;
+    color: #2db1ba;
+    font-family: 450;
+    -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+}
+
+.benef-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px 1fr 1fr 1fr 1fr;
+    grid-row-gap: 32px;
+}
+.benef-1 {
+    text-align: center;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+.benef-2 {
+    text-align: center;
+    grid-column-start: 1;
+    grid-row-start: 3;
+}
+.benef-img {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+}
+.benef-img img {
+    width: 250px;
+    height: auto;
+}
+.benef-3 {
+    text-align: center;
+    grid-column-start: 1;
+    grid-row-start: 4;
+}
+.benef-4 {
+    text-align: center;
+    grid-column-start: 1;
+    grid-row-start: 5;
+}
+@media (min-width: 600px) {
+    .benef-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 300px 1fr 1fr;
+        grid-column-gap: 48px;
+        grid-row-gap: 32px;
+    }
+    .benef-1 {
+        grid-column-start: 1;
+        grid-row-start: 2;
+    }
+    .benef-2 {
+        grid-column-start: 2;
+        grid-row-start: 2;
+    }
+    .benef-img {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        justify-self: center;
+        align-self: center;
+    }
+    .benef-img img {
+        width: 250px;
+        height: auto;
+    }
+    .benef-3 {
+        grid-column-start: 1;
+        grid-row-start: 3;
+    }
+    .benef-4 {
+        grid-column-start: 2;
+        grid-row-start: 3;
+    }
+}
+@media (min-width: 960px) {
+    .benef-grid {
+        display: grid;
+        grid-template-columns: 1fr 250px 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-column-gap: 24px;
+        grid-row-gap: 32px;
+    }
+    .benef-1 {
+        text-align: right;
+        grid-column-start: 1;
+        grid-row-start: 1;
+    }
+    .benef-2 {
+        text-align: left;
+        grid-column-start: 3;
+        grid-row-start: 1;
+    }
+    .benef-img {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        align-self: center;
+    }
+    .benef-3 {
+        text-align: right;
+        grid-column-start: 1;
+        grid-row-start: 2;
+    }
+    .benef-4 {
+        text-align: left;
+        grid-column-start: 3;
+        grid-row-start: 2;
+    }
+}
+.h-qiandao-smalltitle{
+    color: #2184cb;
+    font-size: 20px;
+    font-weight: 530;
+}
+
+
+
+/*  ==============酒店===========================*/
+.h-jiudia *, .h-jiudia *::before, .h-jiudia *::after {
+    box-sizing: border-box;
+}
+.h-jiudian{
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    color: #555;
+    margin-top: 80px;
+}
+.h-jiudian h1 {
+    font-family: "Cabin Sketch", serif;
+    font-size: 3.5em;
+    color: #000;
+    margin-bottom: .25em;
+    text-align: center;
+}
+.h-jiudian h1::after {
+    content: attr(data-timeToRead);
+    font-size: .25em;
+    font-weight: normal;
+    font-family: 'Open Sans';
+    font-style: italic;
+    color: #919191;
+    display: block;
+}
+.h-jiudian h2 {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    color: #2184cb96;
+
+    text-align: center;
+    font-family: 'Cabin Sketch';
+}
+.h-jiudian h2::before,.h-jiudian h2::after {
+    content: '-';
+}
+.h-jiudian .hero {
+    height: 10em;
+    width: 100%;
+
+    margin: 0;
+    padding-top: 1px;
+    background-size: cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.h-jiudian .hero h1 {
+    color: #2db1ba;
+    font-size: 30px;
+    max-width: 750px;
+    /* padding: 20px; */
+    -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+}
+.h-jiudian .wrap {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 1em;
+    font-size: 1.25em;
+    position: relative;
+    height: 580px;
+
+    background: url('../hall/hflower2.png') no-repeat;
+    background-attachment: fixed;
+    background-size:contain;
+    background-position: center;
+    overflow-y: scroll;
+
+}
+.h-jiudian .wrap::-webkit-scrollbar{
+    display: none;
+}
+.h-jiudian hr {
+    border: none;
+    height: 3px;
+    width: 100%;
+    background: transparent;
+    margin: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    transition: 0.3s;
+}
+.h-jiudian hr::before, hr::after {
+    opacity: 0;
+    font-size: .65em;
+    margin-top: 12px;
+    color: #555;
+    position: absolute;
+    transition: 0.3s;
+}
+.h-jiudian hr::before {
+    content: attr(data-percent);
+    left: 20px;
+    width: 100%;
+    border-top: 30px solid transparent;
+    margin-top: -18px;
+    transform: translateY(5px);
+}
+.h-jiudian hr::after {
+    content: attr(data-readtime);
+    right: 20px;
+    transform: translateY(5px);
+}
+.h-jiudian hr:hover::before, hr:hover::after {
+    opacity: 1;
+    transition: 0.3s;
+}
+.h-jiudian hr:hover::before {
+    transform: translateY(-5px);
+}
+.h-jiudian hr:hover::after {
+    transform: translateY(-5px);
+}
+.h-jiudian hr.active {
+    height: 5px;
+    background: #ff9d62;
+    margin-top: -2px;
+}
+.h-jiudian .explanation {
+    position: absolute;
+    font-size: .6em;
+    color: #919191;
+}
+@media screen and (max-width: 768px) {
+    .h-jiudian {
+        font-size: 14px;
+    }
+    .h-jiudian .hero {
+        background-size: auto;
+        background-position-y: 15%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .h-jiudian .hero {
+        background-position-y: 10%;
+    }
+}
+
+/* ================ 联系我们 ==================*/
+.h-contactTitle{
+    text-align: center;
+    font-weight: 500;
+    margin: 0 auto;
+    font-size: calc(24px + .5vw);
+    color: #2db1ba;
+    -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+}
+.h-contact {
+
+
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    color: black;
+    width: 100%;
+}
+.h-contact *, .h-contact *:before, .h-contact *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.contact-area {
+    width: 50%;
+    height: 100vh;
+    position: relative;
+}
+.contact {
+    position: relative;
+    max-width: 420px;
+    padding: 40px 20px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+@media (min-width: 1024px) {
+    .contact {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+}
+.contact main {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.contact main section {
+    border-radius: 5px;
+    float: left;
+    width: 100%; 
+    background: url(../hall/cantackBk.webp);
+}
+.contact main section .content {
+    float: left;
+    width: 100%;
+    padding: 20px 30px 50px 30px;
+    position: relative;
+    text-align: center;
+}
+@media (min-width: 414px) {
+    .contact main section .content {
+        text-align: left;
+    }
+}
+.contact main section .content img {
+    display: inline-block;
+    width: 140px;
+    border-radius: 50%;
+}
+@media (min-width: 414px) {
+    .contact main section .content img {
+        float: left;
+        width: 30%;
+        margin-right: 10%;
+    }
+}
+.contact main section .content aside {
+    float: left;
+    width: 100%;
+    color: black;
+    margin-top: 10px;
+}
+@media (min-width: 414px) {
+    .contact main section .content aside {
+        width: 60%;
+    }
+}
+.contact main section .content aside h1 {
+    font-weight: 100;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.contact main section .content aside p {
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 160%;
+}
+.contact main .title {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    background-image: url(../hall/cantackBk.webp);
+    background-position: 50%;
+    background-size: 300%;
+    max-height: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+    -webkit-transition: all 0.55s;
+    -moz-transition: all 0.55s;
+    -o-transition: all 0.55s;
+    transition: all 0.55s;
+}
+.contact main .title.active {
+    max-height: 100px;
+    -webkit-transition: all 1.3s;
+    -moz-transition: all 1.3s;
+    -o-transition: all 1.3s;
+    transition: all 1.3s;
+}
+.contact main .title.active p {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    transition-delay: .2s;
+}
+.contact main .title p {
+    padding: 15px 30px;
+    color: black;
+    font-size: 16px;
+    display: inline-block;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+}
+.contact main button {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    background-color: rgba(255, 255, 255, 0.442);
+    color: black;
+    backdrop-filter: blur(5px);
+    border: 0;
+    width: 200px;
+    height: 48px;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 16px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: -24px;
+    margin-right: -100px;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    transition-delay: .1s;
+    outline: none;
+    overflow: hidden;
+    z-index: 10;
+    font-family: inherit;
+}
+.contact main button span {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    transition-delay: .4s;
+    display: block;
+    width: 200px;
+    float: left;
+    padding: 15px 0px;
+}
+.contact main button svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.contact main button svg path {
+    fill: #2db1ba;
+    /* #c63535 */
+}
+.contact main button.active {
+    margin-right: 0;
+    right: 20px;
+    width: 65px;
+    height: 65px;
+    margin-bottom: -32.5px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 65px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+.contact main button.active span {
+    opacity: 0;
+    transition-delay: 0s;
+    width: 200px;
+}
+.contact main button.active svg {
+    opacity: 1;
+    transition-delay: .5s;
+}
+.contact nav {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    max-height: 0px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.contact nav.active {
+    max-height: 600px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.contact nav.active a {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    transform: translateY(0px);
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    -o-transition: all 0.7s;
+    transition: all 0.7s;
+}
+.contact nav.active a:nth-of-type(1) {
+    transition-delay: .5s;
+}
+.contact nav.active a:nth-of-type(2) {
+    transition-delay: .7s;
+}
+.contact nav.active a:nth-of-type(3) {
+    transition-delay: .9s;
+}
+.contact nav a {
+    float: left;
+    width: 100%;
+    margin-top: 18px;
+    background-color: #ffffff;
+    padding: 18px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+    transform: translateY(-10px);
+    position: relative;
+}
+@media (min-width: 414px) {
+    .contact nav a {
+        padding: 18px 30px;
+    }
+}
+.contact nav a .arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.contact nav a .arrow path {
+    fill: #e6e6e6;
+}
+.contact nav a.gmail {
+background-image: url(../hall/cantackBk.webp);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.contact nav a.facebook{
+    background-image: url(../hall/cantackBk.webp);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+.contact nav a.gmail .icon svg {
+    background-color: #d14836;
+}
+.contact nav a.gmail .content h1 {
+    color: #d14836;
+}
+.contact nav a.facebook .icon svg {
+    background-color: #3b5998;
+}
+.contact nav a.facebook .content h1 {
+    color: #3b5998;
+}
+.contact nav a .icon {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+.contact nav a .icon svg {
+    width: 100%;
+    height: 100%;
+    padding: 14px;
+}
+.contact nav a .icon svg path {
+    fill: #ffffff;
+}
+
+.contact nav a .content h1 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: .4px;
+}
+.contact nav a .content span {
+    font-size: 14px;
+    color: #2184cb;
+    display: block;
+    letter-spacing: .4px;
+}
+
+
+/* ====================大会场馆 ========== */
+
+.h-place {
+    margin-top: 80px;
+    background: url('../hall/h-p-7.png') no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+    background-size: 100%;
+    height: 120vh;
+    position: relative;
+}
+.h-placeTitle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+
+  color: #2db1ba;
+  font-size: 30px;
+  -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.5));  
+}
+  /**********/
+ /* Slider */
+/**********/
+
+.slider {
+    background-color: #fff;
+    box-shadow: inset 0 0 2px hsla(0,0%,0%,.2),
+                0 3px 1px hsla(0,0%,100%,.75),
+                0 -1px 1px 2px hsla(0,0%,0%,.1);
+    /* 18.75 */
+    height: 33em;
+    left: 50%;
+    /* margin: -9.875em -13em; */
+    padding: .5em;
+    position: absolute;
+    top: 60%;
+    transform: translate(-50%,-50%);
+    /* 25 */
+    width: 44em;
+}
+
+/* Slides */
+
+.slider li {
+    box-shadow: 0 -1px 0 2px hsla(0,0%,0%,.03);
+    list-style:none;
+    position: absolute;
+}
+.slider input {
+    display: none;
+}
+
+/* Navigation */
+
+.slider label {
+    background-color: #2db1ba;
+    background-image: linear-gradient(transparent, hsla(0, 0%, 100%, 0.25));
+    border: .2em solid transparent;
+    bottom: .5em;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    height: .5em;
+    left: 24em;
+    opacity: 0;
+    position: absolute;
+    transition: .25s;
+    width: .5em;
+    visibility: hidden;
+    z-index: 10;
+}
+.slider label:after {
+    border-radius: 100%;
+    bottom: -.2em;
+    /* box-shadow: inset 0 0 0 .2em #111,
+                inset 0 2px 2px #000,
+                0 1px 1px hsla(0,0%,100%,.25); */
+    content: '';
+    left: -.2em;
+    position: absolute;
+    right: -.2em;
+    top: -.2em;
+}
+.slider:hover label {
+    opacity: 1;
+    visibility: visible;
+}
+.slider input:checked + label {
+    background-color: #fff;
+}
+.slider:hover li:nth-child(1) label {
+    left: .5em;
+}
+.slider:hover li:nth-child(2) label {
+    left: 2em;
+}
+.slider:hover li:nth-child(3) label {
+    left: 3.5em;
+}
+.slider:hover li:nth-child(4) label {
+    left: 5em;
+}
+
+/* Images */
+
+.slider img {
+    height: 33em;
+    opacity: 0;
+    transition: .25s;
+    width: 44em;
+    vertical-align: top;
+    visibility: hidden;
+}
+.slider li input:checked ~ img {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
