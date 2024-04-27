@@ -1,7 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- 7.8.10 -->
 <%@ page import="java.sql.*" %>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="static java.sql.DriverManager.getConnection" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
+
 <script>
     //  ================ 浏览器图标 ====================
     let favicon2 = document.createElement('link');
@@ -271,7 +277,7 @@
                             Connection s = DriverManager.getConnection(url, dbUsername, dbPassword);
                             try {
                                 // 准备 SQL 查询语句
-                                String sql = "SELECT * FROM news";
+                                String sql = "SELECT * FROM new";
                                 // 执行查询
                                 Statement stmt = s.createStatement();
                                 ResultSet rs = stmt.executeQuery(sql);
@@ -964,248 +970,374 @@
         </div>
         <div class="expandBox shopBox fade">
             <div class="shopping">
-                <div class="productList">
-                </div>
                 <div class="cart-container">
                     <h2>购物车</h2>
-                    <table>
-                      <thead>
-                        <tr>
-                        <th><strong>商品</strong></th>
-                        <th><strong>价格</strong></th>
-                      </tr>
-                      </thead>
-                      <tbody id="carttable">
-                        <!-- <tr><td>hello</td>
-                            <td>h2</td>
-                        </tr> -->
-                      </tbody>
-                    </table>
-                    <hr>
-                    <table id="carttotals">
-                      <tr>
-                        <td><strong>商品数量</strong></td>
-                        <td><strong>总价格</strong></td>
-                      </tr>
-                      <tr>
-                        <td>x <span id="itemsquantity">0</span></td>
-                       
-                        <td>￥<span id="total">0</span></td>
-                      </tr></table>
-          
-                      
-                    <div class="cart-buttons">  
-                      <button id="emptycart">清空购物车</button>
-                      <button id="checkout">确认订单</button>
+                    <form id="purchaseForm"  method="post" >
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><strong>商品</strong></th>
+                                <th><strong>价格</strong></th>
+                                <th><strong>数量</strong></th>
+                            </tr>
+                            </thead>
+                            <tbody id="carttable">
+                            <!-- Cart items will be added here -->
+                            <%
+                                 url = "jdbc:mysql://49.232.137.252:3306/blog";
+                                 dbUsername = "root";
+                                 dbPassword = "666888aa";
+
+                                try {
+                                    Class.forName("com.mysql.jdbc.Driver");
+                                    // Establish database connection
+                                    Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword);
+                                    String sql = "SELECT * FROM Product";
+                                    Statement stmt = conn.createStatement();
+                                    ResultSet rs = stmt.executeQuery(sql);
+
+                                    // Iterate through the result set and display product information
+                                    while (rs.next()) {
+                                        String id = rs.getString("ProductID");
+                                        String name = rs.getString("Name");
+                                        double price = rs.getDouble("Price");
+                            %>
+                            <tr>
+                                <td><%= name %></td>
+                                <td>￥<%= price %></td>
+                                <td>
+                                    <input type="number" class="quantity" name="quantity_<%= id %>" value="0" min="0">
+                                </td>
+                                <input type="hidden" name="product_id_<%= id %>" value="<%= price %>">
+                            </tr>
+                            <%
+                                    }
+                                    rs.close();
+                                    stmt.close();
+                                    conn.close();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            %>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <table id="carttotals">
+                            <tr>
+                                <td><strong>商品数量</strong></td>
+                                <td><strong>总价格</strong></td>
+                            </tr>
+                            <tr>
+                                <td>x <span id="itemsquantity">0</span></td>
+                                <td>￥<span id="total">0</span></td>
+                            </tr>
+                        </table>
+                        <div class="cart-buttons">
+                            <button type="button" id="checkout">确认订单</button>
+                        </div>
+                    </form>
+                </div>
+                <style>
+                    .modal {
+                        display: none;
+                        position: fixed;
+                        z-index: 1;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background-color: rgb(0, 0, 0);
+                        background-color: rgba(0, 0, 0, 0.4);
+                    }
+
+                    .modal-content {
+                        background-color: #fefefe;
+                        margin: 15% auto; /* 使模态框垂直居中 */
+                        padding: 20px;
+                        border: 1px solid #888;
+                        width: 80%; /* 设置模态框宽度 */
+                    }
+
+                    .close {
+                        color: #aaaaaa;
+                        float: right;
+                        font-size: 28px;
+                        font-weight: bold;
+                    }
+
+                    .close:hover,
+                    .close:focus {
+                        color: #000;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                </style>
+                <!-- Modal -->
+                <div  id="myModal" class="modal"style="display: none;">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>填写订单信息</h2>
+                        <form action="expand" id="orderForm" method="POST">
+                            <label for="address">地址:</label>
+                            <input type="text" id="address" name="address" required><br><br>
+                            <label for="phone">电话:</label>
+                            <input type="text" id="phone" name="phone" required><br><br>
+                            <h3>已选商品</h3>
+                            <table id="selectedItems">
+                                <!-- Selected items will be added here -->
+                            </table>
+                            <input type="submit" id="confirmOrder"></input>
+                        </form>
                     </div>
                 </div>
+                <%
+                    if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("address") != null && request.getParameter("phone") != null) {
+                        // 获取订单信息
+                        String address = request.getParameter("address");
+                        String phone = request.getParameter("phone");
+                        System.out.println("Address: " + address);
+                        System.out.println("Phone: " + phone);
+
+                        // 获取用户选择的商品和数量信息
+                        String[] productIds = request.getParameterValues("product_id");
+                        String[] quantities = request.getParameterValues("quantity");
+
+                        // 设置数据库连接信息
+                        url = "jdbc:mysql://49.232.137.252:3306/blog";
+                        dbUsername = "root";
+                        dbPassword = "666888aa";
+
+                        // 获取用户信息
+                        session = request.getSession();
+                        username = (String) session.getAttribute("username");
+
+                        try {
+                            // 加载数据库驱动程序
+                            Class.forName("com.mysql.jdbc.Driver");
+                            // 建立数据库连接
+                            Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword);
+                            // 设置自动提交为 false，用于事务处理
+                            conn.setAutoCommit(false);
+                            // 创建 SQL 语句
+                            String sql = "INSERT INTO purchase (UserID, address, phone, ProductID, quantity,PurchaseDate,TotalPrice) VALUES (?, ?, ?, ?, ?,?,?)";
+                            // 创建 PreparedStatement 对象
+                            PreparedStatement pstmt = conn.prepareStatement(sql);
+                            // 设置参数值
+                            for (int i = 0; i < productIds.length; i++) {
+                                pstmt.setString(1, username);
+                                pstmt.setString(2, address);
+                                pstmt.setString(3, phone);
+                                pstmt.setString(4, productIds[i]);
+                                pstmt.setString(5, quantities[i]);
+                                pstmt.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis()));
+                                            int id= Integer.parseInt(productIds[i]);
+                                                    // 创建 SQL 查询语句
+                                            String priceQuery = "SELECT Price FROM Product WHERE ProductID = ?";
+                                                   // 创建 PreparedStatement 对象
+                                            PreparedStatement priceStmt = conn.prepareStatement(priceQuery);
+                                            priceStmt.setInt(1, id);
+                                            ResultSet priceResult = priceStmt.executeQuery();
+                                            double price = 0.0; // 设置默认价格为0
+                                            if (priceResult.next()) {
+                                                price = priceResult.getDouble("Price");
+                                            }
+
+
+                                            priceResult.close();
+                                            priceStmt.close();
+
+                                            double number= Double.parseDouble(quantities[i]);
+                                            double totalprice=price*number;
+                                System.out.println(totalprice);
+                                pstmt.setDouble(7, totalprice);
+                                // 执行 SQL 插入操作
+                                pstmt.executeUpdate();
+                            }
+                            // 提交事务
+                            conn.commit();
+                            // 关闭 PreparedStatement 和 Connection
+                            pstmt.close();
+                            conn.close();
+                        } catch (SQLException e) {
+                            // 发生 SQL 异常时抛出运行时异常
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            // 找不到数据库驱动程序时抛出运行时异常
+                            throw new RuntimeException(e);
+                        }
+                    }
+                %>
+
+
+
+                <script>
+                    // Update total quantity and price when quantity changes
+                    var quantities = document.getElementsByClassName("quantity");
+                    for (var i = 0; i < quantities.length; i++) {
+                        quantities[i].addEventListener("change", function () {
+                            updateTotal();
+                        });
+                    }
+
+                    function updateTotal() {
+                        var totalQuantity = 0;
+                        var totalPrice = 0;
+
+                        for (var i = 0; i < quantities.length; i++) {
+                            var quantity = parseInt(quantities[i].value);
+                            totalQuantity += quantity;
+                            totalPrice += quantity * parseFloat(quantities[i].parentNode.previousElementSibling.innerHTML.substring(1));
+                        }
+
+                        document.getElementById("itemsquantity").innerHTML = totalQuantity;
+                        document.getElementById("total").innerHTML = totalPrice.toFixed(2);
+                    }
+
+                    // Call updateTotal initially
+                    updateTotal();
+
+
+
+
+
+
+
+
+                    document.getElementById("checkout").addEventListener("click", function() {
+                        var totalQuantity = parseInt(document.getElementById("itemsquantity").innerHTML);
+                        if (totalQuantity > 0) {
+                            var modal = document.getElementById("myModal");
+                            var span = document.getElementsByClassName("close")[0];
+                            modal.style.display = "block";
+
+                            // Display selected items in modal
+                            var selectedItemsTable = document.getElementById("selectedItems");
+                            selectedItemsTable.innerHTML = "";
+                            var quantities = document.getElementsByClassName("quantity");
+                            for (var i = 0; i < quantities.length; i++) {
+                                var quantity = parseInt(quantities[i].value);
+                                if (quantity > 0) {
+                                    var productId = quantities[i].name.split("_")[1]; // Extract product ID from input name
+                                    var productName = quantities[i].parentNode.previousElementSibling.previousElementSibling.innerHTML;
+                                    var productPrice = parseFloat(quantities[i].parentNode.previousElementSibling.innerHTML.substring(1));
+                                    var row = "<tr><td>" + productName + "</td><td>" + quantity + "</td><td>￥" + (quantity * productPrice).toFixed(2) + "</td></tr>";
+                                    selectedItemsTable.innerHTML += row;
+
+                                    // Add hidden input fields to pass product ID and quantity to the form
+                                    var hiddenProductIdInput = "<input type='hidden' name='product_id' value='" + productId + "'>";
+                                    var hiddenQuantityInput = "<input type='hidden' name='quantity' value='" + quantity + "'>";
+                                    document.getElementById("orderForm").innerHTML += hiddenProductIdInput + hiddenQuantityInput;
+                                }
+                            }
+
+                            // Close the modal when close button is clicked
+                            span.onclick = function() {
+                                modal.style.display = "none";
+                            }
+
+                            // Close the modal when user clicks anywhere outside of it
+                            window.onclick = function(event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+                        } else {
+                            alert("请先选择商品再确认订单！");
+                        }
+                    });
+
+                </script>
+
+
 
 
                 <div class="cart-container">
                     <h2>商品状态</h2>
                     <table>
-                      <thead>
+                        <thead>
                         <tr>
-                        <th><strong>商品</strong></th>
-                        <th><strong>价格</strong></th>
-                        <th><strong>状态</strong></th>
-                        <th><strong>送货上门</strong></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        <tr><td>hello</td>
-                            <td>h2</td>
-                            <td>hell但是vVS v但是VS得到v阿萨v阿萨vo</td>
-                            <td>未收货</td>
+                            <th><strong>商品</strong></th>
+                            <th><strong>价格</strong></th>
+                            <th><strong>选购数量</strong></th>
+                            <th><strong>下单时间</strong></th>
                         </tr>
-                      </tbody>
+                        </thead>
+                        <tbody>
+                        <%
+                             url = "jdbc:mysql://49.232.137.252:3306/blog";
+                             dbUsername = "root";
+                             dbPassword = "666888aa";
+
+                            try {
+                                Class.forName("com.mysql.jdbc.Driver");
+                                Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword);
+                                String sql = "SELECT productid, TotalPrice, Quantity, PurchaseDate FROM purchase WHERE UserID = ? ORDER BY PurchaseDate DESC";
+                                PreparedStatement pstmt = conn.prepareStatement(sql);
+                                pstmt.setString(1, username); // assuming `username` is the user's ID
+                                ResultSet rs = pstmt.executeQuery();
+
+                                while (rs.next()) {
+                                    String id = rs.getString("productid");
+                                                int iid= Integer.parseInt(id);
+                                                // 创建 SQL 查询语句
+                                                String Query = "SELECT name FROM Product WHERE ProductID = ?";
+                                                // 创建 PreparedStatement 对象
+                                                PreparedStatement Stmt = conn.prepareStatement(Query);
+                                                Stmt.setInt(1, iid);
+                                                ResultSet priceResult = Stmt.executeQuery();
+                                    String name =null;
+                                                if (priceResult.next()) {
+                                                    name = priceResult.getString("name");
+                                                }
+
+
+                                                priceResult.close();
+                                                Stmt.close();
+
+                                    double price = rs.getDouble("TotalPrice");
+                                    int status = rs.getInt("Quantity");
+                                    // 获取购买日期并将其格式化为年月日字符串
+                                    Timestamp purchaseDate = rs.getTimestamp("PurchaseDate");
+                                    String purchaseDateStr = null;
+                                    if (purchaseDate != null) {
+                                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                        purchaseDateStr = dateFormat.format(purchaseDate);
+                                    } else {
+                                        // 如果购买日期为null，您可以定义一个默认值，或者根据需要处理
+                                        purchaseDateStr = "N/A";
+                                    }
+
+
+
+                        %>
+                        <tr>
+                            <td><%= name %></td>
+                            <td>￥<%= price %></td>
+                            <td><%= status %></td>
+                            <td><%= purchaseDateStr %></td>
+                        </tr>
+                        <%
+                                }
+                                rs.close();
+                                pstmt.close();
+                                conn.close();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        %>
+                        </tbody>
                     </table>
                 </div>
+
             </div>
             <div class="payMoney hidden">
-                <div class="payMbox">
-                    <h1>订单提交成功</h1>
-                    <div class="payList">
-                        商品数量：<span class="payItemNum"></span><br>
-                        商品列表：<span class="payItem"></span><br>
-                        商品价格：<span class="payPrice"></span>
-                        <form action="" id="payForm">
-                            姓名:<input type="text" name="name">
-                            <br>
-                            手机号:<input type="number" name="iphone">
-                            <br>
-                            地址:<input type="text" name="location">
-                        </form>
-                    </div>
-                    <div class="payMethod">
-                        支付方式：
-                        <div class="payWx payMitem poiner paychecked">
-                            <img src="<%=request.getContextPath()%>/static/expand/expand/vxIcon.png" alt="">
-                            微信
-                        </div>
-                        <div class="payZfb payMitem poiner">
-                            <img src="<%=request.getContextPath()%>/static/expand/expand/zfbIcon.png" alt="">
-                            支付宝
-                        </div>
-                        <!-- 微信还是支付宝 -->
-                    </div>
-                    <div class="payEr">
-                        <img src="<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg" alt="">
-                    </div>
-                    <div class="cancalPay poiner">
-                        取消订单
-                    </div>
-                </div>
+                <!-- Payment form will be shown here -->
             </div>
-            <script>
-
-                //// =================  商品   =================
-                let productList = [
-                    {
-                        id:1,
-                        imgSrc:'<%=request.getContextPath()%>/static/expand/expand/myUeImg.png',
-                        name:'笔',
-                        info:'西湖论坛周边钥匙扣',
-                        price:'10.00',
-                        // 是否是奖品
-                        ifPrize:false,
-                    },
-                    {
-                        id:2,
-                        imgSrc:'<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg',
-                        name:'钥匙扣',
-                        info:'西湖论坛周边钥匙扣',
-                        price:'20.00',
-                        ifPrize:false,
-                    },
-                    {
-                        id:3,
-                        imgSrc:'<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg',
-                        name:'鼠标垫',
-                        info:'西湖论坛周边钥匙扣',
-                        price:'20.00',
-                        ifPrize:false,
-                    },
-                    {
-                        id:4,
-                        imgSrc:'<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg',
-                        name:'钥匙扣',
-                        info:'西湖论坛周边钥匙扣',
-                        price:'20.00',
-                        ifPrize:false,
-                    },
-                ]
-                let productListHtml = document.querySelector('.productList')
-                let productStr = ``
-                function product(){
-                    productList.forEach(item=>{
-                        productStr +=
-                            `<figure class="snip1268">
-        <div class="image">
-          <img src="${item.imgSrc}"/>
-          <a class="add-to-cart" data-id="${item.id}" >添加到购物车</a>
         </div>
-        <figcaption>
-          <h2>${item.name}</h2>
-          <p>${item.info}</p>
-          <div class="price">${item.price}</div>
-        </figcaption>
-    </figure>`
-                    })
-                    productListHtml.innerHTML = productStr
-                }
-                product()
-                let carttable = document.querySelector('#carttable')
-                let addToCart = document.querySelectorAll('.add-to-cart')
-                let itemsquantity = document.querySelector('#itemsquantity')
-                let total =  document.querySelector('#total')
-                let CardList = [
-                    {
-                        id:101,
-                        imgSrc:'<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg',
-                        name:'手机（抽奖）',
-                        info:'西湖论坛周边钥匙扣',
-                        price:'20.00',
-                        ifPrize:true,
-                    }
-                ]
-                function cardInit(){
-                    CardList.forEach(item=>{
-                        itemsquantity.innerText = Number(itemsquantity.innerText) +1
-                        total.innerText = Number(total.innerText) + Number(item.price)
-                        carttable.innerHTML+= `<tr>
-        <td>${item.name}</td>
-        <td>${item.price}</td>
-        </tr>`
-                    })
-                }
-                function addCard(){
-                    cardInit()
-                    addToCart.forEach(item=>{
-                        item.addEventListener('click',function(){
-                            let x = Number(item.getAttribute('data-id'))
-                            CardList.push(productList[x-1])
 
-                            carttable.innerHTML+= `<tr>
-        <td>${productList[x-1].name}</td>
-        <td>${productList[x-1].price}</td>
-        </tr>`
-                            itemsquantity.innerText = Number(itemsquantity.innerText) +1
-                            total.innerText = Number(total.innerText) + Number(productList[x-1].price)
-                        })
-                    })}
-                addCard()
-                let emptycart = document.querySelector('#emptycart')
-                function clearCard(){
-                    carttable.innerHTML= ``
-                    CardList = CardList.filter(item=>item.ifPrize)
-                    cardInit()
-                }
-                emptycart.addEventListener('click',function(){
-                    clearCard()
-                })
-                // 唤起订单
-                let payMoney = document.querySelector('.payMoney')
-                document.querySelector('#checkout').addEventListener('click',function(){
-                    payMoney.classList.remove('hidden')
-                    payMoney.querySelector('.payPrice').innerText = total.innerText
-                    payMoney.querySelector('.payItemNum').innerText = itemsquantity.innerText
-                    let x = ''
-                    CardList.forEach(item=>{
-                        x += item.name+' '
-                    })
-                    payMoney.querySelector('.payItem').innerText = x
-                })
-                let cancalPay = document.querySelector('.cancalPay')
-                cancalPay.addEventListener('click',function(){
-                    payMoney.classList.add('hidden')
-                })
-                // 切换微信还是支付宝
-                let payWx = document.querySelector('.payWx')
-                let payZfb = document.querySelector('.payZfb')
-                let payImg = document.querySelector('.payEr img')
-                payWx.addEventListener('click',()=>{
-                    payWx.classList.add('paychecked')
-                    payZfb.classList.remove('paychecked')
-                    payImg.src = '<%=request.getContextPath()%>/static/expand/expand/blackCat.jpg'
-                })
-                payZfb.addEventListener('click',()=>{
-                    payZfb.classList.add('paychecked')
-                    payWx.classList.remove('paychecked')
-                    payImg.src = '<%=request.getContextPath()%>/static/expand/expand/footer.jpg'
-                })
-                // 假如订单已完成
-                function cardAfterPay(){
-                    // 购物车清空
-                    carttable.innerHTML= ``
-                    CardList = []
-                    itemsquantity.innerText = 0
-                    total.innerText = 0
-                }
-                // cardAfterPay()
-
-            </script>
-        </div>
         <div class="expandBox poster fade">
             <%
                 session = request.getSession();
@@ -1213,7 +1345,7 @@
                 int score = (int) session.getAttribute("score");
             %>
             <%
-                if ("POST".equalsIgnoreCase(request.getMethod())) {
+                if ("POST".equalsIgnoreCase(request.getMethod())  &&  request.getParameter("password") != null) {
                     // 获取提交的用户名和密码
                     String password = request.getParameter("password");
                     String email = request.getParameter("email");
